@@ -1,7 +1,6 @@
 ## Emergence of Mathematical Reasoning in Transformers:
-  Geometric Analysis of Representation Spaces and Fine-Tuning Dynamics
-  Bachelor’s Thesis in Computer Engineering, University of Naples Federico II
-  Riccardo Bonagura, N46007216
+Geometric Analysis of Representation Spaces and Fine-Tuning Dynamics
+Bachelor’s Thesis in Computer Engineering, University of Naples Federico II
 
 ## Overview
 Modern Large Language Models exhibit surprising capabilities in logical-mathematical reasoning, yet the internal mechanisms through which these abilities emerge remain largely opaque. This work aims to investigate the geometric structure of the internal representation spaces of Transformers—namely, the hidden states—in order to understand where and how mathematical reasoning takes shape within the layered hierarchy of a language model.
