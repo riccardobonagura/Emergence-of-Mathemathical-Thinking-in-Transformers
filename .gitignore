@@ -1,0 +1,46 @@
+# --- Ambiente e Sicurezza ---
+.env
+.venv/
+env/
+venv/
+bin/
+lib/
+develop-eggs/
+dist/
+eggs/
+installed.cfg
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# --- Python & Cache ---
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints
+.pytest_cache/
+.mypy_cache/
+
+# --- DATI DELLA TESI ---
+# Escludiamo le cartelle che conterranno file pesanti
+data/
+results/
+checkpoints/
+outputs/
+
+# Escludiamo formati di file pesanti o binari
+*.pt
+*.pth
+*.bin
+*.npy
+*.pkl
+*.h5
+*.onnx
+
+# --- Monitoraggio e Log ---
+wandb/
+logs/
+*.log
