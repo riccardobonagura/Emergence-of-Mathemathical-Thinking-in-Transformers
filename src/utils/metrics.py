@@ -286,7 +286,7 @@ def compute_cka_matrix_intramodel(
     """
     # ── Caricamento del primo layer per determinare N (numero stimoli) ──────
     first_layer_path = hidden_states_dir / "layer_00.pt"
-    H_first = torch.load(first_layer_path, map_location=device).numpy()  # (N, d)
+    H_first = torch.load(first_layer_path, map_location=device).cpu().numpy()  # (N, d)
     N = H_first.shape[0]
 
     # ── Selezione fissa degli indici di subsample ───────────────────────────
@@ -302,7 +302,7 @@ def compute_cka_matrix_intramodel(
     H_sub_all = []  # lista di array (n_sub, d), uno per layer
     for l in range(n_layers):
         layer_path = hidden_states_dir / f"layer_{l:02d}.pt"
-        H_l = torch.load(layer_path, map_location=device).numpy()  # (N, d)
+        H_l = torch.load(layer_path, map_location=device).cpu().numpy()  # (N, d)
         H_sub_all.append(H_l[sub_idx])  # (n_sub, d) — subsample fisso
 
     # ── Calcolo della matrice CKA L×L ───────────────────────────────────────
@@ -403,7 +403,7 @@ def compute_cka_intercategory_all_layers(
 
     for l in tqdm(range(n_layers), desc="CKA inter-categoria per layer"):
         layer_path = hidden_states_dir / f"layer_{l:02d}.pt"
-        H_l = torch.load(layer_path, map_location=device).numpy()  # (N, d)
+        H_l = torch.load(layer_path, map_location=device).cpu().numpy().astype(np.float64)  # (N, d)
 
         H_math    = H_l[math_indices]     # (n_math,    d)
         H_generic = H_l[generic_indices]  # (n_generic, d)
@@ -469,7 +469,7 @@ def compute_cka_cross_temporal(
     for l in range(n_layers):
         H_l = torch.load(
             base_hidden_states_dir / f"layer_{l:02d}.pt", map_location=device
-        ).numpy()
+        ).numpy().astype(np.float64)
         H_base.append(H_l[sub_idx])  # (n_sub, d)
 
     # ── CKA cross-temporale per ogni checkpoint ──────────────────────────────
@@ -485,7 +485,7 @@ def compute_cka_cross_temporal(
         for l in tqdm(range(n_layers), desc=f"  Layer ({ckpt_name})"):
             H_ckpt_l = torch.load(
                 ckpt_dir / f"layer_{l:02d}.pt", map_location=device
-            ).numpy()
+            ).numpy().astype(np.float64)
             H_ckpt_sub = H_ckpt_l[sub_idx]  # (n_sub, d) — stesso subsample
 
             # CKA tra rappresentazioni del base e del checkpoint al layer l
